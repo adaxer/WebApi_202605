@@ -1,0 +1,11 @@
+@WeatherForecast_HostAddress = http://localhost:5062
+@sslAddress = https://localhost:7168
+GET {{sslAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{sslAddress}}/swagger/v1/swagger.json
+Accept: application/json
+
+###

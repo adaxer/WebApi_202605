@@ -1,0 +1,47 @@
+@MovieBase.Api_HostAddress = https://localhost:7184
+
+GET {{MovieBase.Api_HostAddress}}/movies/list
+Accept: application/xml
+
+###
+
+GET {{MovieBase.Api_HostAddress}}/movies/details/2
+Accept: application/json
+
+###
+
+POST {{MovieBase.Api_HostAddress}}/movies/create
+Content-Type: application/json
+
+{
+    "Title": "Stargate",
+    "Director": "Egal"
+}
+
+###
+
+PUT {{MovieBase.Api_HostAddress}}/movies/update
+Content-Type: application/json
+
+{
+    "Id": 1,
+    "Title": "Blade Runner",
+    "Director": "Ridley Scott"
+}
+
+###
+
+
+PATCH {{MovieBase.Api_HostAddress}}/movies/patch/2
+Content-Type: application/json
+
+[
+  {
+    "path": "/Title",
+    "op": "replace",
+    "value": "SomeMovie"
+  }
+]
+
+###
+

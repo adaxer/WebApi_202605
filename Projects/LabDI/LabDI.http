@@ -1,0 +1,18 @@
+@LabDI_HostAddress = http://localhost:5100
+
+GET {{LabDI_HostAddress}}/transient/
+Accept: application/json
+
+###
+GET {{LabDI_HostAddress}}/singleton/
+Accept: application/json
+
+###
+GET {{LabDI_HostAddress}}/scoped/
+Accept: application/json
+
+###
+GET {{LabDI_HostAddress}}/all/
+Accept: application/json
+
+###

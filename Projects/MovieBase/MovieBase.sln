@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34607.119
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11723.231 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieBase.Api", "MovieBase.Api\MovieBase.Api.csproj", "{8E920EE8-5B9C-4E3A-A26F-03E9E3369C67}"
 EndProject
@@ -10,6 +10,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBase.ClientLib", "MovieBase.ClientLib\MovieBase.ClientLib.csproj", "{0BF6E052-2690-49AE-9535-8A0E76BC7629}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBase.Wpf", "MovieBase.Wpf\MovieBase.Wpf.csproj", "{D3A0B638-21A9-43DD-A812-1E2C0EC4950A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBaseConsole", "MovieBaseConsole\MovieBaseConsole.csproj", "{C82C7AD4-08A4-4B08-A095-0718BF5B5776}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D37AAD73-1E7B-4AEF-A6E9-F34E038F2B0D}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		UpdatePrompt.txt = UpdatePrompt.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +42,10 @@ Global
 		{D3A0B638-21A9-43DD-A812-1E2C0EC4950A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3A0B638-21A9-43DD-A812-1E2C0EC4950A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3A0B638-21A9-43DD-A812-1E2C0EC4950A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C82C7AD4-08A4-4B08-A095-0718BF5B5776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C82C7AD4-08A4-4B08-A095-0718BF5B5776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C82C7AD4-08A4-4B08-A095-0718BF5B5776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C82C7AD4-08A4-4B08-A095-0718BF5B5776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

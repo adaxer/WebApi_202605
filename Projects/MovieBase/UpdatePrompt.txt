@@ -1,0 +1,3 @@
+Add a Directory.build.props to the Solution Items folder (and the file to the project). I
+t should use .Net 10 globally and define the version as well as the Nullable and Implicit Usings, 
+move them from the csproj files there. And then switch to Global Package Management and add a Directory.packages.props

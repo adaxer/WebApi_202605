@@ -6,18 +6,17 @@ namespace MovieBase.ClientLib;
 
 public class MoviesClient
 {
-    const string BaseUrl = "https://localhost:7184/movies/";
-    private HttpClient client;
+    private HttpClient _client;
 
-    public MoviesClient()
+    public MoviesClient(HttpClient client)
     {
-        client = new HttpClient();
-        client.BaseAddress = new Uri(BaseUrl);
+        ArgumentNullException.ThrowIfNull(client, nameof(client));
+        _client = client;
     }
 
     public async Task<List<Movie>> GetMovies()
     {
-        var result = await client.GetFromJsonAsync<List<Movie>>("list");
+        var result = await _client.GetFromJsonAsync<List<Movie>>("list");
         return result ?? new List<Movie>();
     }
 }

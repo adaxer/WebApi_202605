@@ -1,8 +1,12 @@
 
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using MovieBase.Common;
 using MovieBase.Common.Data;
 using System.Diagnostics;
+using System.Reflection;
+using System.Text.Json;
 
 namespace MovieBase.Api;
 
@@ -21,6 +25,8 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddHealthChecks()
+            .AddCheck<DatabaseConnectedHealthCheck>("Database");
 
         builder.Services.AddDbContext<MoviesContext>(o => o.UseSqlite(builder.Configuration.GetConnectionString("MovieConnection")));
 
@@ -48,9 +54,41 @@ public class Program
 
         app.MapControllers();
         app.MapHub<MessageHub>("/messages");
+        app.MapHealthChecks("/health", new HealthCheckOptions
+        {
+            ResponseWriter = WriteHealthCheckResponse
+        });
 
         app.Run();
     }
+
+    private static Task WriteHealthCheckResponse(HttpContext context, HealthReport report)
+    {
+        context.Response.ContentType = "application/json; charset=utf-8";
+        context.Response.Headers["X-Health-Writer"] = "custom";
+
+        var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString()
+                      ?? "unknown";
+
+        var response = new
+        {
+            status = report.Status.ToString(),
+            version,
+            checks = report.Entries.Select(e => new {
+                name = e.Key,
+                status = e.Value.Status.ToString(),
+                description = e.Value.Description,
+                duration = e.Value.Duration.ToString(),
+                exception = e.Value.Exception?.Message,
+                version=version
+            }),
+            totalDuration = report.TotalDuration.ToString()
+        };
+
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        return context.Response.WriteAsync(JsonSerializer.Serialize(response, options));
+    }
+ 
 
     private static void SeedDemoData(IServiceProvider services)
     {

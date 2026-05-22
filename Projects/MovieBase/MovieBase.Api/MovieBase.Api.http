@@ -1,4 +1,34 @@
 @MovieBase.Api_HostAddress = https://localhost:7184
+@user=alice
+@password=123Admin!
+
+POST {{MovieBase.Api_HostAddress}}/auth/register
+Content-Type: application/json
+
+{
+    "username": "{{user}}",
+    "password": "{{password}}",
+    "email": "{{user}}@bob.com"
+}
+
+###
+
+POST {{MovieBase.Api_HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "{{user}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImVjNjYxZjMwLWZlOWItNDhiMS1hZjc0LTFhZTgwM2E1NjE1MyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhbGljZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFsaWNlQGJvYi5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW4iLCJVc2VyIl0sImV4cCI6MTc4MDY2ODk2MywiaXNzIjoiYXV0aG9yaXR5LmNvbSIsImF1ZCI6IlNtYXJ0TGlicmFyeS5kZSJ9.L7mP67hzzISbdrfY4c5Eze6pt-LwBsH70Unky4hVnBo
+
+GET {{MovieBase.Api_HostAddress}}/auth/userinfo
+Authorization: Bearer {{token}}
+
+###
 
 GET {{MovieBase.Api_HostAddress}}/movies/list
 Accept: application/xml
@@ -7,6 +37,7 @@ Accept: application/xml
 
 GET {{MovieBase.Api_HostAddress}}/movies/details/2
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 

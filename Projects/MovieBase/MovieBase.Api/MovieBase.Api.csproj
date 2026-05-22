@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MovieBase.Common\MovieBase.Common.csproj" />
+    <ProjectReference Include="..\SmartLibrary.Auth\SmartLibrary.Auth.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -42,6 +43,7 @@ public class MoviesController : ControllerBase
     //}
 
     [HttpGet("{id}", Name = "Details")]
+    [Authorize(Policy ="BasicAuth")]
     public async Task<IActionResult> Details(int id)
     {
         var result = await _movieService.FindMovie(id);

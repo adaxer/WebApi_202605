@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="UpdatePrompt.txt" />
+  </Folder>
+  <Project Path="MovieBase.Api/MovieBase.Api.csproj" />
+  <Project Path="MovieBase.ClientLib/MovieBase.ClientLib.csproj" />
+  <Project Path="MovieBase.Common/MovieBase.Common.csproj" />
+  <Project Path="MovieBase.Wpf/MovieBase.Wpf.csproj" />
+  <Project Path="MovieBaseConsole/MovieBaseConsole.csproj" />
+  <Project Path="SmartLibrary.Auth/SmartLibrary.Auth.csproj" />
+</Solution>

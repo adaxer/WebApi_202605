@@ -4,17 +4,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using MovieBase.Common;
 using MovieBase.Common.Data;
+using SmartLibrary.Auth.Endpoints;
+using SmartLibrary.Auth;
+using SmartLibrary.Auth.User;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
+
 
 namespace MovieBase.Api;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+
+        builder.Services.AddConfiguredUserDb(o =>
+        {
+            o.UserDbConnectionString = builder.Configuration.GetConnectionString("AppConnection")!;
+            o.EncryptionSecret = builder.Configuration.GetValue<string>("Jwt:Secret")!;
+            o.TokenIssuer = builder.Configuration.GetValue<string>("Jwt:Issuer")!;
+            o.TokenAudience = builder.Configuration.GetValue<string>("Jwt:Audience")!;
+            o.TokenLifetime = builder.Configuration.GetValue<TimeSpan>("Jwt:TokenLifetime")!;
+        });
 
         // Add services to the container.
         builder.Services.AddScoped<MovieService>();
@@ -48,17 +62,20 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
-
         app.MapControllers();
+        app.MapAccountEndpoints();
         app.MapHub<MessageHub>("/messages");
         app.MapHealthChecks("/health", new HealthCheckOptions
         {
             ResponseWriter = WriteHealthCheckResponse
         });
 
+        await UserDbInitializer.EnsureUsers(app.Services, GetUserData());
         app.Run();
     }
 
@@ -105,4 +122,22 @@ public class Program
             Trace.TraceError($"Seeding failed: {ex}");
         }
     }
+
+    private static IEnumerable<(UserLoginData data, IEnumerable<string> roles)> GetUserData()
+    {
+        yield return (new UserLoginData
+        {
+            UserName = "alice",
+            Email = "alice@bob.com",
+            Password = "123Admin!"
+        }, new List<string> { "Admin", "User" });
+
+        yield return (new UserLoginData
+        {
+            UserName = "bob",
+            Email = "bob@alice.com",
+            Password = "123User!"
+        }, new List<string> { "User" });
+    }
+
 }
